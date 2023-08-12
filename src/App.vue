@@ -1,10 +1,9 @@
 <script setup>
-import Sidebar from "@/components/Sidebar/Sidebar.vue";
+import Sidebar from "@/components/Sidebar.vue";
 </script>
 
 <template>
   <div class="app">
     <Sidebar />
-    This is content
   </div>
 </template>

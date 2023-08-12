@@ -1,0 +1,135 @@
+.sidebar {
+  left: 0;
+  width: 360px;
+  height: 100%;
+  border-right: 1px solid rgba(217, 217, 217, 0.1);
+  background: #202020;
+  position: absolute;
+  padding: 2px;
+  transform: translateX(0);
+  transition: all 0.3s ease;
+	z-index: 99999;
+
+  &.close {
+    transform: translateX(-100%);
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      width: 100%;
+      background: rgba(217, 217, 217, 0.1);
+      border-radius: 2px;
+    }
+
+    &-close {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: rgba(217, 217, 217, 0.1);
+        border-radius: 2px;
+      }
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &-logo {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(0, 0, 0, 0.2) 100%
+        ),
+        #353535;
+      color: #fff;
+      font-family: Roboto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    &-name {
+      color: #d5d5ca;
+      font-family: Roboto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+
+  &__menu {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+
+    &-item {
+      padding: 10px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+
+      &:hover {
+        width: 100%;
+        background: rgba(217, 217, 217, 0.1);
+        border-radius: 2px;
+      }
+
+      & span {
+        color: #9b9b97;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+  }
+
+  &__tasks {
+    margin-top: 20px;
+
+    &-task {
+      padding: 10px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #9b9b97;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &-drop {
+        transform: rotate(-90deg);
+      }
+
+      &:hover {
+        width: 100%;
+        background: rgba(217, 217, 217, 0.1);
+        border-radius: 5px;
+      }
+    }
+  }
+}
