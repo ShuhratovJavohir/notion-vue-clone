@@ -14,7 +14,7 @@ const onClickCloseSidebar = () => {
 
   if (isSidebarOpen.value == !true) {
     window.addEventListener("mousemove", (e) => {
-      if (e.clientX < 360) {
+      if (e.clientX < 200) {
         console.log("open");
         miniSidebar.value = true;
       }
