@@ -1,54 +1,62 @@
 <script setup>
-import { ref } from "vue";
-const sidebarIsOpen = ref(true);
-const isBurger = ref(true)
-const burger = ref(false)
+import { onMounted, ref } from "vue";
+const isSidebarOpen = ref(true);
+const miniSidebar = ref(false);
+const isBurger = ref(true);
+const activeBurger = ref(false);
 
+// Закрытие Sidebar
 const onClickCloseSidebar = () => {
-  sidebarIsOpen.value = false;
+  isSidebarOpen.value = false;
   setTimeout(() => {
-    burger.value = true
-  }, 300)
+    activeBurger.value = true;
+  }, 300);
+
+  if (isSidebarOpen.value == !true) {
+    window.addEventListener("mousemove", (e) => {
+      if (e.clientX < 360) {
+        console.log("open");
+        miniSidebar.value = true;
+      }
+      if (e.clientX > 360) {
+        console.log("open");
+        miniSidebar.value = false;
+      }
+    });
+  }
 };
-
+// Открытие Sidebar
 const onClickOpenSidebar = () => {
-  sidebarIsOpen.value = true
-  isBurger.value = false
-  burger.value = false
-}
-
+  isSidebarOpen.value = true;
+  activeBurger.value = false;
+};
+// При навидении на бургер, отображаем кнопку для открытия
 const mouseBurger = () => {
-  const mouse = document.querySelector('.burger')
-  const open  = document.querySelector('.open-sidebar')
-  mouse.addEventListener('mousemove', () => {
-    console.log(open);
-    isBurger.value = false
-  })
-  open.addEventListener('mouseleave', () => {
-    isBurger.value = true
-  })
-}
+  isBurger.value = false;
+};
+// Когда убираем курсор с кнопки открытия, отображаем бургер
+const mouseOpen = () => {
+  isBurger.value = true;
+};
 </script>
 
 <template>
-  <!-- sidebar -->
-  <div class="sidebar" :class="sidebarIsOpen == false ? 'close' : ''">
-    <!-- sidebar top -->
+  <div class="sidebar" :class="{ close: !isSidebarOpen, open: miniSidebar }">
     <div class="sidebar__top">
-      <!-- sidebar user -->
       <div class="sidebar__user">
         <span class="sidebar__user-logo">J</span>
         <h3 class="sidebar__user-name">Shuhratov Javohir Saving</h3>
         <img src="@/assets/images/user-info-drop.svg" alt="" />
       </div>
-      <!-- sidebar user end -->
-      <span @click="onClickCloseSidebar" class="sidebar__top-close">
+      <span 
+        @click="onClickCloseSidebar" 
+        class="sidebar__top-close"
+        v-show="isSidebarOpen == true"
+      >
         <img src="@/assets/images/sidebar-close.svg" alt="" />
       </span>
     </div>
-    <!-- sidebar top end -->
 
-    <!-- sidebar menu -->
     <ul class="sidebar__menu">
       <li class="sidebar__menu-item">
         <img src="@/assets/images/icons/search.svg" alt="search" />
@@ -67,7 +75,6 @@ const mouseBurger = () => {
         <span>New page</span>
       </li>
     </ul>
-    <!-- sidebar menu end -->
     <ul class="sidebar__tasks">
       <li class="sidebar__tasks-task">
         <span class="sidebar__tasks-task-drop">
@@ -92,13 +99,22 @@ const mouseBurger = () => {
       </li>
     </ul>
   </div>
-  <div v-show="isBurger" @mouseenter="mouseBurger" class="burger" :class="burger == true ? 'active' : ''">
+  <div
+    v-show="isBurger == true"
+    class="burger"
+    :class="activeBurger == true ? 'active' : ''"
+    @mouseover="mouseBurger"
+  >
     <span class="burger-item"></span>
     <span class="burger-item"></span>
     <span class="burger-item"></span>
   </div>
-  <div @click="onClickOpenSidebar" v-show="isBurger == false" class="open-sidebar">
-    <img src="@/assets/images/sidebar-close.svg" alt="">
+  <div
+    v-show="isBurger == false"
+    class="open-sidebar"
+    @mouseleave="mouseOpen"
+    @click="onClickOpenSidebar"
+  >
+    <img src="@/assets/images/sidebar-close.svg" alt="" />
   </div>
-  <!-- sidebar end -->
 </template>

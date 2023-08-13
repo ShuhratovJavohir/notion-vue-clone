@@ -8,10 +8,18 @@
   padding: 2px;
   transform: translateX(0);
   transition: all 0.3s ease;
-	z-index: 99999;
+  z-index: 99999;
+
+  &.close.open {
+    transform: translate(0, 50px);
+		background-color: rgba(217, 217, 217, 0.1);;
+		border: none;
+  }
 
   &.close {
-    transform: translateX(-100%);
+    transform: translate(-100%, 50px);
+		height: min-content;
+		padding-bottom: 10px;
   }
 
   &__top {
