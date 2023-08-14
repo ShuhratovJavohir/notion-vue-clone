@@ -1,70 +1,91 @@
-@import './font.scss';
-@import './all';
+@import "./font.scss";
+@import "./all";
 
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Roboto';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto";
 }
 
-body{
-	background-color: #191919;
+body {
+  background-color: #191919;
 }
 
-a{
-	text-decoration: none;
+a {
+  text-decoration: none;
 }
 
-li{
-	list-style: none;
+li {
+  list-style: none;
 }
 
-.burger{
-	position: relative;
-	top: 12px;
-	left: 12px;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 7px;
-	opacity: 0;
-	z-index: -1;
-	transition: all .2s ease;
-	cursor: pointer;
+.burger {
+  position: relative;
+  top: 12px;
+  left: 12px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.2s ease;
+  cursor: pointer;
 
-	&.active{
-		opacity: 1;
-		z-index: 999;
-	}
+  &.active {
+    opacity: 1;
+    z-index: 999;
+  }
 
-	&-item{
-		width: 30px;
-		height: 2px;
-		background-color: #d5d5ca;
-	}
+  &-item {
+    width: 30px;
+    height: 2px;
+    background-color: #d5d5ca;
+  }
 }
 
-.open-sidebar{
-	position: relative;
-	top: 12px;
-	left: 12px;
-	width: 30px;
-	height: 30px;
-	background: rgba(217, 217, 217, 0.1);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 5px;
-	cursor: pointer;
-	transform: rotate(180deg);
+.open-sidebar {
+  position: relative;
+  top: 12px;
+  left: 12px;
+  width: 30px;
+  height: 30px;
+  background: rgba(217, 217, 217, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transform: rotate(180deg);
 }
 
-.hover{
-	height: 100%;
-	width: 300px;
-	position: absolute;
-	z-index: 99;
+.hover {
+  height: 100%;
+  width: 300px;
+  position: absolute;
+  z-index: 99;
+}
+
+.help {
+  position: absolute;
+  top: 12px;
+  left: 60px;
+  width: 120px;
+  height: 50px;
+  background: rgba(217, 217, 217, 0.1);
+  padding: 5px;
+	border-radius: 3px;
+
+  & h3 {
+    font-size: 13px;
+    color: #d5d5ca;
+  }
+
+  & p {
+    color: rgba(217, 217, 217, 0.4);
+		margin-top: 3px;
+  }
 }

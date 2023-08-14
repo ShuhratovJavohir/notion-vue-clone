@@ -11,13 +11,13 @@
   z-index: 99999;
 
   &.close.open {
-    transform: translate(0, 50px);
+    transform: translate(0, 80px);
 		background-color: rgba(217, 217, 217, 0.1);;
-		border: none;
+    border-radius: 3px;
   }
 
   &.close {
-    transform: translate(-100%, 50px);
+    transform: translate(-100%, 80px);
 		height: min-content;
 		padding-bottom: 10px;
   }
@@ -140,4 +140,14 @@
       }
     }
   }
+}
+
+.help-enter-active,
+.help-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.help-enter-from,
+.help-leave-to {
+  opacity: 0;
 }

@@ -1,43 +1,61 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onBeforeUnmount } from "vue";
 const isSidebarOpen = ref(true);
 const miniSidebar = ref(false);
 const isBurger = ref(true);
 const activeBurger = ref(false);
+const help = ref(false);
 
-// Закрытие Sidebar
-const onClickCloseSidebar = () => {
-  isSidebarOpen.value = false;
-  setTimeout(() => {
-    activeBurger.value = true;
-  }, 300);
-
-  if (isSidebarOpen.value == !true) {
-    window.addEventListener("mousemove", (e) => {
-      if (e.clientX < 200) {
-        console.log("open");
-        miniSidebar.value = true;
-      }
-      if (e.clientX > 360) {
-        console.log("open");
-        miniSidebar.value = false;
-      }
-    });
+// Открытие и закрытие Sidebar
+const onClickSidebarBtn = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+  if (!isSidebarOpen.value) {
+    setTimeout(() => {
+      activeBurger.value = true;
+    }, 300);
+  } else {
+    activeBurger.value = false;
   }
 };
-// Открытие Sidebar
-const onClickOpenSidebar = () => {
-  isSidebarOpen.value = true;
-  activeBurger.value = false;
+
+// Открытие при навидение курором miniSidebar
+const mousemoveHandler = (e) => {
+  if (!isSidebarOpen.value) {
+    if (e.clientX < 80) {
+      miniSidebar.value = true;
+    }
+    if (e.clientX > 360) {
+      miniSidebar.value = false;
+    }
+  }
 };
-// При навидении на бургер, отображаем кнопку для открытия
+
+// Изменения btn при навидании
 const mouseBurger = () => {
-  isBurger.value = false;
+  isBurger.value = !isBurger.value;
+  help.value = !help.value;
 };
-// Когда убираем курсор с кнопки открытия, отображаем бургер
-const mouseOpen = () => {
-  isBurger.value = true;
+
+// горячая клавиша
+const handleKeyPress = (event) => {
+  if (event.ctrlKey && event.key === "/") {
+    if (!isSidebarOpen.value) {
+      onClickSidebarBtn();
+    } else {
+      onClickSidebarBtn();
+    }
+  }
 };
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeyPress);
+  window.addEventListener("mousemove", mousemoveHandler);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleKeyPress);
+  window.removeEventListener("mousemove", mousemoveHandler);
+});
 </script>
 
 <template>
@@ -48,8 +66,8 @@ const mouseOpen = () => {
         <h3 class="sidebar__user-name">Shuhratov Javohir Saving</h3>
         <img src="@/assets/images/user-info-drop.svg" alt="" />
       </div>
-      <span 
-        @click="onClickCloseSidebar" 
+      <span
+        @click="onClickSidebarBtn"
         class="sidebar__top-close"
         v-show="isSidebarOpen == true"
       >
@@ -112,9 +130,15 @@ const mouseOpen = () => {
   <div
     v-show="isBurger == false"
     class="open-sidebar"
-    @mouseleave="mouseOpen"
-    @click="onClickOpenSidebar"
+    @mouseleave="mouseBurger"
+    @click="onClickSidebarBtn"
   >
     <img src="@/assets/images/sidebar-close.svg" alt="" />
   </div>
+  <Transition name="help">
+    <div v-show="help == true" class="help">
+      <h3>Lock sidebar open</h3>
+      <p>ctrl + /</p>
+    </div>
+  </Transition>
 </template>
