@@ -24,6 +24,9 @@ const onClickSettings = (item) => {
   }
 }
 
+const onClickTask = (task) => {
+  sidebarTasksStore.activeTask(task)
+}
 
 // Открытие и закрытие Sidebar
 const onClickSidebarBtn = () => {
@@ -95,13 +98,23 @@ onBeforeUnmount(() => {
     </div>
 
     <ul class="sidebar__menu">
-      <li v-for="item in getSettings" :key="item.id" class="sidebar__menu-item" @click="onClickSettings(item)">
+      <li 
+        v-for="item in getSettings" 
+        :key="item.id" 
+        class="sidebar__menu-item" 
+        @click="onClickSettings(item)"
+      >
         <img :src="'../images/icons/' + item.icon" alt="search" />
         <span>{{ item.name }}</span>
       </li>
     </ul>
     <ul class="sidebar__tasks">
-      <li v-for="taks in getTasks" :key="taks.id" class="sidebar__tasks-task">
+      <li 
+        v-for="taks in getTasks" 
+        :key="taks.id" 
+        class="sidebar__tasks-task"
+        @click="onClickTask(taks)"
+      >
         <span class="sidebar__tasks-task-drop">
           <img src="../../images/icons/drop.svg" alt="" />
         </span>

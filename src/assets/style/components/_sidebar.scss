@@ -128,6 +128,9 @@
       line-height: normal;
       cursor: pointer;
       transition: all 0.2s ease;
+      overflow: hidden;
+      word-wrap: none;
+      margin-right: 20px;
 
       &-drop {
         transform: rotate(-90deg);

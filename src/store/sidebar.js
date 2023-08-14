@@ -14,19 +14,34 @@ export const useSidebarSetingsStore = defineStore("sidebar-settings", {
 export const useSidebarTasksStore = defineStore("sidebar-tasks", {
   state: () => ({
     tasks: [],
-    item: "",
+    task: null,
     modelAddTask: null,
     openModelAddTask: false,
   }),
   actions: {
-    addTask(input,id) {
-      let task = {
-        id: id,
-        icon: "page.svg",
-        title: `${input}`,
-        subtitle: "",
-      };
+    addTask(input, id) {
+      let task
+      if ((input ==  "")) {
+        input = "Untiled";
+        task = {
+          id: id,
+          icon: "page.svg",
+          title: `${input}`,
+          subtitle: "",
+        };
+      } else {
+        task = {
+          id: id,
+          icon: "page.svg",
+          title: `${input}`,
+          subtitle: "",
+        };
+      }
+
       this.tasks.push(task);
+    },
+    activeTask(task) {
+      this.task = task;
     },
   },
 });

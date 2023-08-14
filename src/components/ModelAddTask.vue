@@ -9,7 +9,7 @@ const sidebarTasksStore = useSidebarTasksStore();
 const input = ref("");
 
 const onClickAdd = (title) => {
-	const id = uuidv4();
+  const id = uuidv4();
   sidebarTasksStore.addTask(title, id);
   sidebarTasksStore.openModelAddTask = false;
   input.value = "";

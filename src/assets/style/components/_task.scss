@@ -1,0 +1,22 @@
+.task {
+  position: absolute;
+  left: 360px;
+  top: 50px;
+  height: calc(100% - 50px);
+  width: calc(100% - 360px);
+  padding: 70px 170px;
+
+  &-title {
+    width: 100%;
+    font-size: 38px;
+    font-weight: 500;
+  }
+
+  &-item {
+    margin-top: 10px;
+
+		& textarea{
+			font-size: 18px;
+		}
+  }
+}
