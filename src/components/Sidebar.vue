@@ -1,10 +1,29 @@
 <script setup>
-import { onMounted, ref, onBeforeUnmount } from "vue";
+import { onMounted, ref, onBeforeUnmount, computed } from "vue";
+import { useSidebarSetingsStore, useSidebarTasksStore } from "@/store/sidebar.js";
+// lokal state
 const isSidebarOpen = ref(true);
 const miniSidebar = ref(false);
 const isBurger = ref(true);
 const activeBurger = ref(false);
 const help = ref(false);
+
+// Global state
+const sidebarSettingsStore = useSidebarSetingsStore();
+const sidebarTasksStore = useSidebarTasksStore()
+
+
+const getSettings = computed(() => sidebarSettingsStore.settings);
+const getTasks = computed(() => sidebarTasksStore.tasks)
+
+
+// Settings
+const onClickSettings = (item) => {
+  if(item.name === 'New page'){
+    sidebarTasksStore.openModelAddTask = true
+  }
+}
+
 
 // Открытие и закрытие Sidebar
 const onClickSidebarBtn = () => {
@@ -64,56 +83,30 @@ onBeforeUnmount(() => {
       <div class="sidebar__user">
         <span class="sidebar__user-logo">J</span>
         <h3 class="sidebar__user-name">Shuhratov Javohir Saving</h3>
-        <img src="@/assets/images/user-info-drop.svg" alt="" />
+        <img src="../../images/user-info-drop.svg" alt="" />
       </div>
       <span
         @click="onClickSidebarBtn"
         class="sidebar__top-close"
         v-show="isSidebarOpen == true"
       >
-        <img src="@/assets/images/sidebar-close.svg" alt="" />
+        <img src="../../images/sidebar-close.svg" alt="" />
       </span>
     </div>
 
     <ul class="sidebar__menu">
-      <li class="sidebar__menu-item">
-        <img src="@/assets/images/icons/search.svg" alt="search" />
-        <span>Search</span>
-      </li>
-      <li class="sidebar__menu-item">
-        <img src="@/assets/images/icons/update.svg" alt="search" />
-        <span>Update</span>
-      </li>
-      <li class="sidebar__menu-item">
-        <img src="@/assets/images/icons/setting.svg" alt="search" />
-        <span>Setting & members</span>
-      </li>
-      <li class="sidebar__menu-item">
-        <img src="@/assets/images/icons/add.svg" alt="search" />
-        <span>New page</span>
+      <li v-for="item in getSettings" :key="item.id" class="sidebar__menu-item" @click="onClickSettings(item)">
+        <img :src="'../images/icons/' + item.icon" alt="search" />
+        <span>{{ item.name }}</span>
       </li>
     </ul>
     <ul class="sidebar__tasks">
-      <li class="sidebar__tasks-task">
+      <li v-for="taks in getTasks" :key="taks.id" class="sidebar__tasks-task">
         <span class="sidebar__tasks-task-drop">
-          <img src="@/assets/images/icons/drop.svg" alt="" />
+          <img src="../../images/icons/drop.svg" alt="" />
         </span>
-        <img src="@/assets/images/icons/page.svg" alt="" />
-        <span>page</span>
-      </li>
-      <li class="sidebar__tasks-task">
-        <span class="sidebar__tasks-task-drop">
-          <img src="@/assets/images/icons/drop.svg" alt="" />
-        </span>
-        <img src="@/assets/images/icons/page.svg" alt="" />
-        <span>page</span>
-      </li>
-      <li class="sidebar__tasks-task">
-        <span class="sidebar__tasks-task-drop">
-          <img src="@/assets/images/icons/drop.svg" alt="" />
-        </span>
-        <img src="@/assets/images/icons/page.svg" alt="" />
-        <span>page</span>
+        <img :src="'../../images/icons/' + taks.icon" alt="" />
+        <span>{{ taks.title }}</span>
       </li>
     </ul>
   </div>
@@ -133,7 +126,7 @@ onBeforeUnmount(() => {
     @mouseleave="mouseBurger"
     @click="onClickSidebarBtn"
   >
-    <img src="@/assets/images/sidebar-close.svg" alt="" />
+    <img src="../../images/sidebar-close.svg" alt="" />
   </div>
   <Transition name="help">
     <div v-show="help == true" class="help">

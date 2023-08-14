@@ -89,3 +89,13 @@ li {
 		margin-top: 3px;
   }
 }
+
+.module-enter-active,
+.module-leave-active {
+  transition: opacity 100ms ease-in-out;
+}
+
+.module-enter-from,
+.module-leave-to {
+  opacity: 0;
+}
